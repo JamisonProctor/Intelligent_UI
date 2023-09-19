@@ -1,9 +1,12 @@
 import os
 from dotenv import load_dotenv
 from langchain.llms import OpenAI
+import streamlit as st
 
-load_dotenv()
-api_key = os.getenv('OPENAI_API_KEY')
+#load_dotenv()
+#api_key = os.getenv('OPENAI_API_KEY')
+
+api_key = st.secrets["OPENAI_API_KEY"]
 
 #choose model
 #model_name = 'gpt-3.5-turbo'

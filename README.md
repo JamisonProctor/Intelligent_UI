@@ -21,18 +21,6 @@ Introducing Intelligent UI, where we're dedicated to making interactions with La
 
 Our secret sauce? Intelligent UI. We've harnessed the immense power of LLMs to dynamically craft contextual UI elements on the fly. These UI elements not only deepen the interaction but also serve as subtle guides for a seamless LLM experience.
 
-## Getting Started
-
-Rename the file `template_env.txt` located in this directory to `.env`.
-Input your OpenAI API key where it says `place your OpenAI API Key/Secret here` in the new .env file.
-
-In your terminal navigate to this project and run:
-`python -m venv venv`
-`source venv/bin/activate`
-`pip install -r requirements.txt`
-`streamlit run main.py`
-
-Any enjoy a demo of what **Intelligen UI** can do!
 
 ## Contributing
 
@@ -46,7 +34,7 @@ We encourage you to stay updated with our project by watching or starring the re
 
 ## License
 
-See the [LICENSE](LICENSE) file for details.
+see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 

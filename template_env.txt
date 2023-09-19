@@ -1,2 +1,0 @@
-
-OPENAI_API_KEY=place your OpenAI API Key/Secret here
