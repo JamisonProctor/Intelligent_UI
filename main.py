@@ -61,9 +61,9 @@ if st.session_state.get("processing", False):
     st.session_state.processing = False
 
 if not st.session_state.initialized:
-    st.title("Intelligent UI 💡")
+    st.title("easyGPTzee 🍋")
     st.markdown('''
-    Intelligent UI is a user-friendly tool designed to streamline interactions with ChatGPT-4.0 and similar AI text interfaces. With the ability to dynamically generate intuitive UI widgets on the fly, it demystifies AI conversations, making them more accessible to everyone, regardless of their familiarity with prompt engineering or the realm of AI. 
+    easyGPTzy is a user-friendly tool designed to streamline interactions with ChatGPT-4.0 and similar AI text interfaces. With the ability to dynamically generate intuitive UI widgets on the fly, it demystifies AI conversations, making them more accessible to everyone, regardless of their familiarity with prompt engineering or the realm of AI. 
     
     🙏 Please understand that none of this content beyond this page is hardcoded, so please give the program time to process 🙏 
     ''')
