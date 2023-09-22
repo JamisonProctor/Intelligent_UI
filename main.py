@@ -18,7 +18,7 @@ from langchain.prompts import (
     HumanMessagePromptTemplate,
 )
 
-from logging_functions import log_content, setup_database, get_next_conversation_id, start_new_conversation
+# from sql_logging_functions import log_content, setup_database, get_next_conversation_id, start_new_conversation
 
 # Create the table
 setup_database()
@@ -100,13 +100,13 @@ else:
     # Only fetch conversation if not present in session state
     if not st.session_state.get("conversation"):
         st.session_state.conversation = conversation_starter
-    log_content(conversation_id, st.session_state.conversation, 'conversation')
+    # log_content(conversation_id, st.session_state.conversation, 'conversation') #sql logging
 
 
     # Only fetch ui_instructions if not present in session state or when "Confirm" is clicked
     if not st.session_state.get("ui_instructions"):
         st.session_state.ui_instructions = fetch_ui_instructions(st.session_state.conversation)
-    log_content(conversation_id, json.dumps(st.session_state.ui_instructions), 'ui_instructions')
+    # log_content(conversation_id, json.dumps(st.session_state.ui_instructions), 'ui_instructions') #sql logging
         
     ui_instructions = st.session_state.ui_instructions
 
