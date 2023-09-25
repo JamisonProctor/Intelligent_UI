@@ -8,7 +8,9 @@ import streamlit as st
 import time
 
 from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+from langchain.chat_models import 
+ 
+ 
 
 from langchain.output_parsers import PydanticOutputParser
 
@@ -21,7 +23,7 @@ from langchain.prompts import (
 from logging_functions import log_content, setup_database, get_next_conversation_id, start_new_conversation
 
 # Create the table
-setup_database()
+#setup_database()
 
 # Generate a new unique conversation_id
 conversation_id = get_next_conversation_id()
