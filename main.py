@@ -1,5 +1,6 @@
 from ui_instructions_format import UI_INSTRUCTIONS_FORMAT
 from openAI_model_info import model_name, temperature, api_key
+from mongodb_converastion_logging import initialize_conversation, update_conversation, check_conversation
 
 import json
 from pydantic import BaseModel, Field, validator
@@ -21,10 +22,10 @@ from langchain.prompts import (
 # from sql_logging_functions import log_content, setup_database, get_next_conversation_id, start_new_conversation
 
 # Create the table
-setup_database()
+# setup_database()
 
 # Generate a new unique conversation_id
-conversation_id = get_next_conversation_id()
+#conversation_id = get_next_conversation_id()
 
 model = OpenAI(model_name=model_name, temperature=temperature, api_key=api_key) 
 parser = PydanticOutputParser(pydantic_object=UI_INSTRUCTIONS_FORMAT)
@@ -53,6 +54,7 @@ def fetch_ui_instructions(query):
     output = model(_input.to_string())
     return dict(parser.parse(output))
 
+conversation_id = initialize_conversation(model_name=model_name)
 
 if "initialized" not in st.session_state:
     st.session_state.initialized = False
@@ -96,17 +98,17 @@ if not st.session_state.initialized:
         st.experimental_rerun()
 
 else:
-
+    
     # Only fetch conversation if not present in session state
     if not st.session_state.get("conversation"):
         st.session_state.conversation = conversation_starter
-    # log_content(conversation_id, st.session_state.conversation, 'conversation') #sql logging
+    
 
 
     # Only fetch ui_instructions if not present in session state or when "Confirm" is clicked
     if not st.session_state.get("ui_instructions"):
         st.session_state.ui_instructions = fetch_ui_instructions(st.session_state.conversation)
-    # log_content(conversation_id, json.dumps(st.session_state.ui_instructions), 'ui_instructions') #sql logging
+    update_conversation(conversation_id, st.session_state.conversation, st.session_state.ui_instructions)
         
     ui_instructions = st.session_state.ui_instructions
 

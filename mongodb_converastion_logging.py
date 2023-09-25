@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 from datetime import datetime
 import uuid
+import streamlit as st  
 
-server_url = "mongodb://localhost:27017/"
+server_url = st.secrets["SERVER_URL"]
 
 # Helper function to get connect to the correct collection in database
 def get_conversations_collection():
@@ -11,11 +12,12 @@ def get_conversations_collection():
     return db.conversations
 
 # Initialize a new conversation document. Returns the conversation id.
-def initialize_conversation():
+def initialize_conversation(model_name):
     conversations = get_conversations_collection()
     conversation_id = str(uuid.uuid4())
     initialized_conversation = {
         '_id' : conversation_id,
+        'model_used' : model_name,
         'interactions' : []
     }
     conversations.insert_one(initialized_conversation)

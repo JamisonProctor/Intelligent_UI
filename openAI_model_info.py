@@ -10,8 +10,9 @@ api_key = st.secrets["OPENAI_API_KEY"]
 
 #choose model
 #model_name = 'gpt-3.5-turbo'
-model_name = 'gpt-4'
+model_name = 'gpt-3.5-turbo-16k'
+#model_name = 'gpt-4'
 #model_name = 'text-davinci-003' #not working
-temperature = 0.0
+temperature = 0.2
 
 
