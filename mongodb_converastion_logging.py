@@ -1,31 +1,29 @@
 from pymongo import MongoClient
 from datetime import datetime
-import uuid
 import streamlit as st  
 
 server_url = st.secrets["SERVER_URL"]
+collection_name = 'conversations_jamison'
 
 # Helper function to get connect to the correct collection in database
-def get_conversations_collection():
+def connect_mongodb_collection(server_url = server_url, collection_name = collection_name):
     client = MongoClient(server_url)
     db = client.intelligent_ui
-    return db.conversations
+    return db[f"{collection_name}"]
 
 # Initialize a new conversation document. Returns the conversation id.
-def initialize_conversation(model_name):
-    conversations = get_conversations_collection()
-    conversation_id = str(uuid.uuid4())
+def initialize_conversation(model_name, collection_name=collection_name):
+    conversations = connect_mongodb_collection() 
     initialized_conversation = {
-        '_id' : conversation_id,
         'model_used' : model_name,
         'interactions' : []
     }
-    conversations.insert_one(initialized_conversation)
+    conversation_id = conversations.insert_one(initialized_conversation).inserted_id
     return conversation_id
 
 # Update conversation document with a new interaction 
-def update_conversation(conversation_id, query, response):
-    conversations = get_conversations_collection()
+def update_conversation(conversation_id, query, response, collection_name=collection_name):
+    conversations = connect_mongodb_collection()
     new_interaction = {
         'query' : query,
         'response' : response,
@@ -38,8 +36,8 @@ def update_conversation(conversation_id, query, response):
     )
 
 # Helper function to print the conversation history
-def check_conversation(conversation_id):
-    conversations = get_conversations_collection()
+def check_conversation(conversation_id, collection_name=collection_name):
+    conversations = connect_mongodb_collection()
     
     # Query the database to find the conversation with the given ID
     conversation = conversations.find_one({'_id': conversation_id})
@@ -47,6 +45,7 @@ def check_conversation(conversation_id):
     # Check if the conversation exists
     if conversation:
         print(f"Conversation ID: {conversation_id}")
+        print(f"Model Used: {conversation['model_used']}")  
         print("=" * 50)
         
         for i, interaction in enumerate(conversation['interactions'], 1):
