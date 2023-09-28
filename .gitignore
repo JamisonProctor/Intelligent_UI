@@ -161,4 +161,4 @@ cython_debug/
 
 # Streamlit secrets management
 .streamlit
-.toml
+secrets.toml
