@@ -1,5 +1,5 @@
 from backend.models import UI_INSTRUCTIONS_FORMAT
-from backend.views import initialize_conversation, update_conversation
+from backend.conversation_logging_tools import initialize_mongodb_conversation, update_mongodb_conversation, collection_name
 
 
 import json
@@ -150,6 +150,7 @@ def handle_ui_elements(ui_instructions):
 def show_conversation_ui():
     if "ui_instructions" not in st.session_state:
         st.session_state.ui_instructions = fetch_ui_instructions(st.session_state.conversation)
+        update_mongodb_conversation(conversation_id=st.session_state.conversation_id, query=st.session_state.conversation, response=st.session_state.ui_instructions, collection_name=collection_name)
 
     st.title(st.session_state.ui_instructions["Title"])
     st.markdown(f'**{st.session_state.ui_instructions["Overview_label"]}**')
@@ -202,9 +203,12 @@ def main():
     if st.session_state.initialized == False:
         show_intro()
     
+    if "conversation_id" not in st.session_state:
+        st.session_state.conversation_id = initialize_mongodb_conversation(model_name=model_name)
+
     else:
         show_conversation_ui()
-
+        update_mongodb_conversation(conversation_id=st.session_state.conversation_id, query=st.session_state.conversation, response=st.session_state.ui_instructions, collection_name=collection_name)
 
 if __name__ == "__main__":
     main()

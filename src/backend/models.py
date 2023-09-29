@@ -27,3 +27,5 @@ class UI_INSTRUCTIONS_FORMAT(BaseModel):
     ui_element_3_options: Optional[List[str]] = Field(description="A list of options considering the overview content for the third UI element, if applicable")
     ui_element_3_min_value: Optional[int] = Field(description="The minimum value for the third UI element, if applicable. Carefully consider the range of values that are appropriate for the topic.")
     ui_element_3_max_value: Optional[int] = Field(description="The maximum value for the third UI element, if applicable. Carefully consider the range of values that are appropriate for the topic.")
+
+
