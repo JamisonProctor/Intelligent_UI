@@ -12,7 +12,7 @@ def connect_mongodb_collection(server_url = server_url, collection_name = collec
     return db[f"{collection_name}"]
 
 # Initialize a new conversation document. Returns the conversation id.
-def initialize_conversation(model_name, collection_name=collection_name):
+def initialize_mongodb_conversation(model_name, collection_name=collection_name):
     conversations = connect_mongodb_collection() 
     initialized_conversation = {
         'model_used' : model_name,
@@ -22,7 +22,7 @@ def initialize_conversation(model_name, collection_name=collection_name):
     return conversation_id
 
 # Update conversation document with a new interaction 
-def update_conversation(conversation_id, query, response, collection_name=collection_name):
+def update_mongodb_conversation(conversation_id, query, response, collection_name=collection_name):
     conversations = connect_mongodb_collection()
     new_interaction = {
         'query' : query,
@@ -36,7 +36,7 @@ def update_conversation(conversation_id, query, response, collection_name=collec
     )
 
 # Helper function to print the conversation history
-def check_conversation(conversation_id, collection_name=collection_name):
+def check_mongodb_conversation(conversation_id, collection_name=collection_name):
     conversations = connect_mongodb_collection()
     
     # Query the database to find the conversation with the given ID
